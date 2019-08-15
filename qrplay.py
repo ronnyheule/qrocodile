@@ -131,12 +131,27 @@ def handle_command(qrcode):
         perform_room_request('linein/' + urllib.quote(args.linein_source))
         perform_room_request('play')
         phrase = 'I\'ve activated the turntable'
-    elif qrcode == 'cmd:livingroom':
-        switch_to_room('Living Room')
+    elif qrcode == 'cmd:kinderzimmer':
+        switch_to_room('OG Kinderzimmer')
+        phrase = 'I\'m switching to the child\'s room'
+    elif qrcode == 'cmd:spielzimmer':
+        switch_to_room('OG Spielzimmer')
+        phrase = 'I\'m switching to the play room'
+    elif qrcode == 'cmd:bad_eltern':
+        switch_to_room('OG Bad/Eltern')
+        phrase = 'I\'m switching to the bath and parent\'s room'
+    elif qrcode == 'cmd:wohnzimmer':
+        switch_to_room('EG Wohnzimmer')
         phrase = 'I\'m switching to the living room'
-    elif qrcode == 'cmd:diningandkitchen':
-        switch_to_room('Dining Room')
-        phrase = 'I\'m switching to the dining room'
+    elif qrcode == 'cmd:outdoor':
+        switch_to_room('EG Outdoor')
+        phrase = 'I\'m switching to the outdoor speakers'
+    elif qrcode == 'cmd:gartenhaus':
+        switch_to_room('X Gartenhaus')
+        phrase = 'I\'m switching to the garden shed'
+    elif qrcode == 'cmd:unterbuenteli':
+        switch_to_room('X Unterbünteli')
+        phrase = 'I\'m switching to the neighbors'
     elif qrcode == 'cmd:songonly':
         current_mode = Mode.PLAY_SONG_IMMEDIATELY
         phrase = 'Show me a card and I\'ll play that song right away'
@@ -244,7 +259,7 @@ def read_debug_script():
 
 
 perform_global_request('pauseall')
-speak('Hello, I\'m crocodile.')
+speak('Hello Cedric and Viviana, I\'m crocodile.')
 
 if not args.skip_load:
     # Preload library on startup (it takes a few seconds to prepare the cache)
