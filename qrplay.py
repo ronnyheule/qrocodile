@@ -244,7 +244,7 @@ def read_debug_script():
 
 
 perform_global_request('pauseall')
-speak('Hello, I\'m qrocodile.')
+speak('Hello, I\'m crocodile.')
 
 if not args.skip_load:
     # Preload library on startup (it takes a few seconds to prepare the cache)
