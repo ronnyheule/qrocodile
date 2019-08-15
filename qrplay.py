@@ -150,7 +150,7 @@ def handle_command(qrcode):
         switch_to_room('X Gartenhaus')
         phrase = 'I\'m switching to the garden shed'
     elif qrcode == 'cmd:unterbuenteli':
-        switch_to_room('X Unterbünteli')
+        switch_to_room('X Unterbuenteli')
         phrase = 'I\'m switching to the neighbors'
     elif qrcode == 'cmd:songonly':
         current_mode = Mode.PLAY_SONG_IMMEDIATELY
