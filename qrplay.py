@@ -31,8 +31,8 @@ import urllib2
 
 # Parse the command line arguments
 arg_parser = argparse.ArgumentParser(description='Translates QR codes detected by a camera into Sonos commands.')
-arg_parser.add_argument('--default-device', default='Dining Room', help='the name of your default device/room')
-arg_parser.add_argument('--linein-source', default='Dining Room', help='the name of the device/room used as the line-in source')
+arg_parser.add_argument('--default-device', default='OG_Spielzimmer', help='the name of your default device/room')
+arg_parser.add_argument('--linein-source', default='OG Spielzimmer', help='the name of the device/room used as the line-in source')
 arg_parser.add_argument('--hostname', default='localhost', help='the hostname or IP address of the machine running `node-sonos-http-api`')
 arg_parser.add_argument('--skip-load', action='store_true', help='skip loading of the music library (useful if the server has already loaded it)')
 arg_parser.add_argument('--debug-file', help='read commands from a file instead of launching scanner')
