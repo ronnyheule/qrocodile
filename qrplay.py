@@ -204,6 +204,14 @@ def handle_spotify_item(uri):
 
     perform_room_request('spotify/{0}/{1}'.format(action, uri))
 
+    
+def handle_say(qrcode):
+    if ":" in qrcode:
+        phrase = qrcode.split(":",1)[1]    
+
+    if phrase:
+        speak(phrase)
+
 
 def handle_qrcode(qrcode):
     global last_qrcode
@@ -220,6 +228,8 @@ def handle_qrcode(qrcode):
         handle_command(qrcode)
     elif qrcode.startswith('spotify:'):
         handle_spotify_item(qrcode)
+    elif qrcode.startswith('say:'):
+        handle_say(qrcode)
     else:
         handle_library_item(qrcode)
 
