@@ -236,8 +236,9 @@ def handle_qrcode(qrcode):
     # Blink the onboard LED to give some visual indication that a code was handled
     # (especially useful for cases where there's no other auditory feedback, like
     # when adding songs to the queue)
-    if not args.debug_file:
-        blink_led()
+    # rh: auskommentiert da keine LED vorhanden
+#    if not args.debug_file: 
+#        blink_led()
         
     last_qrcode = qrcode
 
@@ -269,7 +270,7 @@ def read_debug_script():
 
 
 perform_global_request('pauseall')
-speak('Hello Cedric and Viviana, I\'m crocodile.')
+speak('Hello Cedric and Viviana, I\'m Jack the T-Rex.')
 
 if not args.skip_load:
     # Preload library on startup (it takes a few seconds to prepare the cache)
@@ -286,7 +287,7 @@ if args.debug_file:
     read_debug_script()
 else:
     # Start the QR code reader
-    p = os.popen('/usr/bin/zbarcam --prescale=300x200', 'r')
+    p = os.popen('/usr/bin/zbarcam --prescale=300x200 --nodisplay', 'r')
     try:
         start_scan()
     except KeyboardInterrupt:
