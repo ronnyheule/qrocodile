@@ -192,6 +192,19 @@ def handle_library_item(uri):
     perform_room_request('musicsearch/library/{0}/{1}'.format(action, uri))
 
 
+def handle_playlist(uri):
+    print('PLAYING FROM PLAYLIST: ' + uri)
+
+    if current_mode == Mode.BUILD_QUEUE:
+        action = 'queue'
+    elif current_mode == Mode.PLAY_ALBUM_IMMEDIATELY:
+        action = 'clearqueueandplayalbum'
+    else:
+        action = 'clearqueueandplaysong'
+
+    perform_room_request('playlist/{0}/{1}'.format(action, uri))
+    
+    
 def handle_spotify_item(uri):
     print('PLAYING FROM SPOTIFY: ' + uri)
 
@@ -228,6 +241,8 @@ def handle_qrcode(qrcode):
         handle_command(qrcode)
     elif qrcode.startswith('spotify:'):
         handle_spotify_item(qrcode)
+    elif qrcode.startswith('playlist:'):
+        handle_playlist(qrcode)
     elif qrcode.startswith('say:'):
         handle_say(qrcode)
     else:
