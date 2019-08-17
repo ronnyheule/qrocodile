@@ -192,6 +192,7 @@ def handle_library_item(uri):
     perform_room_request('musicsearch/library/{0}/{1}'.format(action, uri))
 
 
+# rh: test playlist
 def handle_playlist(uri):
     print('PLAYING FROM PLAYLIST: ' + uri)
 
