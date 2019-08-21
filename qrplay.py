@@ -60,7 +60,7 @@ class Mode:
     PLAY_ALBUM_IMMEDIATELY = 2
     BUILD_QUEUE = 3
 
-current_mode = Mode.PLAY_SONG_IMMEDIATELY
+current_mode = Mode.PLAY_ALBUM_IMMEDIATELY
 
 
 def perform_request(url):
@@ -138,7 +138,7 @@ def handle_command(qrcode):
         switch_to_room('OG Spielzimmer')
         phrase = 'I\'m switching to the play room'
     elif qrcode == 'cmd:bad_eltern':
-        switch_to_room('OG Bad/Eltern')
+        switch_to_room('OG Bad Eltern')
         phrase = 'I\'m switching to the bath and parent\'s room'
     elif qrcode == 'cmd:wohnzimmer':
         switch_to_room('EG Wohnzimmer')
@@ -286,7 +286,7 @@ def read_debug_script():
 
 
 perform_global_request('pauseall')
-speak('Hello Cedric and Viviana, I\'m Jack the T-Rex.')
+speak('Hello Cedric and Viviana, I\'m Charlie the chameleon.')
 
 if not args.skip_load:
     # Preload library on startup (it takes a few seconds to prepare the cache)
