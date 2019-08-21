@@ -89,7 +89,8 @@ def perform_room_request(path):
 def switch_to_room(room):
     global current_device
 
-    perform_global_request('pauseall')
+# rh - prevent stopping all players
+#    perform_global_request('pauseall')
     current_device = room
     with open(".last-device", "w") as device_file:
         device_file.write(current_device)
@@ -302,7 +303,8 @@ def read_debug_script():
             sleep(4)
 
 
-perform_global_request('pauseall')
+# rh - prevent stopping all players
+#perform_global_request('pauseall')
 speak('Hello Cedric and Viviana, I\'m Charlie the chameleon.')
 
 if not args.skip_load:
