@@ -47,9 +47,13 @@ try:
     with open('.last-device', 'r') as device_file:
         current_device = device_file.read().replace('\n', '')
         print('Defaulting to last used room: ' + current_device)
+    with open("qrplay.log", "w") as log_file:
+        log_file.write('Defaulting to last used room: ' + current_device)
 except:
     current_device = args.default_device
     print('Initial room: ' + current_device)
+    with open("qrplay.log", "w") as log_file:
+        log_file.write('Initial room: ' + current_device)
 
 # Keep track of the last-seen code
 last_qrcode = ''
@@ -68,6 +72,9 @@ def perform_request(url):
     response = urllib2.urlopen(url)
     result = response.read()
     print(result)
+    with open("qrplay.log", "w") as log_file:
+        log_file.write(url)
+        log_file.write(result)
 
 
 def perform_global_request(path):
@@ -91,6 +98,8 @@ def switch_to_room(room):
 def speak(phrase):
     print('SPEAKING: \'{0}\''.format(phrase))
     perform_room_request('say/' + urllib.quote(phrase))
+    with open("qrplay.log", "w") as log_file:
+        log_file.write('SPEAKING: \'{0}\''.format(phrase))
 
 
 # Causes the onboard green LED to blink on and off twice.  (This assumes Raspberry Pi 3 Model B; your
@@ -120,6 +129,8 @@ def handle_command(qrcode):
     global current_mode
 
     print('HANDLING COMMAND: ' + qrcode)
+    with open("qrplay.log", "w") as log_file:
+        log_file.write('HANDLING COMMAND: ' + qrcode)
 
     if qrcode == 'cmd:playpause':
         perform_room_request('playpause')
@@ -234,16 +245,22 @@ def handle_qrcode(qrcode):
     # want to perform it multiple times
     if qrcode == last_qrcode and not qrcode.startswith('cmd:'):
         print('IGNORING REDUNDANT QRCODE: ' + qrcode)
+        with open("qrplay.log", "w") as log_file:
+            log_file.write('IGNORING REDUNDANT QRCODE: ' + qrcode)
         return
 
     print('HANDLING QRCODE: ' + qrcode)
+    with open("qrplay.log", "w") as log_file:
+        log_file.write('HANDLING QRCODE: ' + qrcode)
 
     if qrcode.startswith('cmd:'):
         handle_command(qrcode)
     elif qrcode.startswith('spotify:'):
         handle_spotify_item(qrcode)
-    elif qrcode.startswith('playlist:'):
-        handle_playlist(qrcode)
+# rh
+#    elif qrcode.startswith('playlist:'):
+#        handle_playlist(qrcode)
+#
     elif qrcode.startswith('say:'):
         handle_say(qrcode)
     else:
@@ -291,9 +308,13 @@ speak('Hello Cedric and Viviana, I\'m Charlie the chameleon.')
 if not args.skip_load:
     # Preload library on startup (it takes a few seconds to prepare the cache)
     print('Indexing the library...')
+    with open("qrplay.log", "w") as log_file:
+        log_file.write('Indexing the library...')
     speak('Please give me a moment to gather my thoughts.')
     perform_room_request('musicsearch/library/loadifneeded')
     print('Indexing complete!')
+    with open("qrplay.log", "w") as log_file:
+        log_file.write('Indexing complete!')
     speak('I\'m ready now!')
 
 speak('Show me a card!')
@@ -308,5 +329,7 @@ else:
         start_scan()
     except KeyboardInterrupt:
         print('Stopping scanner...')
+        with open("qrplay.log", "w") as log_file:
+            log_file.write('Stopping scanner...')
     finally:
         p.close()
