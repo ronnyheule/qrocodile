@@ -72,7 +72,7 @@ def perform_request(url):
     response = urllib2.urlopen(url)
     result = response.read()
     print(result)
-    with open("qrplay.log", "w") as log_file:
+    with open("qrplay.log", "a") as log_file:
         log_file.write(url)
         log_file.write(result)
 
@@ -98,7 +98,7 @@ def switch_to_room(room):
 def speak(phrase):
     print('SPEAKING: \'{0}\''.format(phrase))
     perform_room_request('say/' + urllib.quote(phrase))
-    with open("qrplay.log", "w") as log_file:
+    with open("qrplay.log", "a") as log_file:
         log_file.write('SPEAKING: \'{0}\''.format(phrase))
 
 
@@ -129,7 +129,7 @@ def handle_command(qrcode):
     global current_mode
 
     print('HANDLING COMMAND: ' + qrcode)
-    with open("qrplay.log", "w") as log_file:
+    with open("qrplay.log", "a") as log_file:
         log_file.write('HANDLING COMMAND: ' + qrcode)
 
     if qrcode == 'cmd:playpause':
@@ -245,12 +245,12 @@ def handle_qrcode(qrcode):
     # want to perform it multiple times
     if qrcode == last_qrcode and not qrcode.startswith('cmd:'):
         print('IGNORING REDUNDANT QRCODE: ' + qrcode)
-        with open("qrplay.log", "w") as log_file:
+        with open("qrplay.log", "a") as log_file:
             log_file.write('IGNORING REDUNDANT QRCODE: ' + qrcode)
         return
 
     print('HANDLING QRCODE: ' + qrcode)
-    with open("qrplay.log", "w") as log_file:
+    with open("qrplay.log", "a") as log_file:
         log_file.write('HANDLING QRCODE: ' + qrcode)
 
     if qrcode.startswith('cmd:'):
@@ -308,12 +308,12 @@ speak('Hello Cedric and Viviana, I\'m Charlie the chameleon.')
 if not args.skip_load:
     # Preload library on startup (it takes a few seconds to prepare the cache)
     print('Indexing the library...')
-    with open("qrplay.log", "w") as log_file:
+    with open("qrplay.log", "a") as log_file:
         log_file.write('Indexing the library...')
     speak('Please give me a moment to gather my thoughts.')
     perform_room_request('musicsearch/library/loadifneeded')
     print('Indexing complete!')
-    with open("qrplay.log", "w") as log_file:
+    with open("qrplay.log", "a") as log_file:
         log_file.write('Indexing complete!')
     speak('I\'m ready now!')
 
@@ -329,7 +329,7 @@ else:
         start_scan()
     except KeyboardInterrupt:
         print('Stopping scanner...')
-        with open("qrplay.log", "w") as log_file:
+        with open("qrplay.log", "a") as log_file:
             log_file.write('Stopping scanner...')
     finally:
         p.close()
